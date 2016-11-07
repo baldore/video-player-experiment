@@ -14,4 +14,8 @@ export default defineMessages({
     id: 'boilerplate.components.Header.features',
     defaultMessage: 'Features',
   },
+  mediaPlayer: {
+    id: 'boilerplate.components.Header.mediaPlayer',
+    defaultMessage: 'Media Player',
+  },
 });

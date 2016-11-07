@@ -1,6 +1,5 @@
 import App from '../index';
 import Header from 'components/Header';
-import Footer from 'components/Footer';
 
 import expect from 'expect';
 import { shallow } from 'enzyme';
@@ -22,12 +21,5 @@ describe('<App />', () => {
       </App>
     );
     expect(renderedComponent.contains(children)).toEqual(true);
-  });
-
-  it('should render the footer', () => {
-    const renderedComponent = shallow(
-      <App />
-    );
-    expect(renderedComponent.find(Footer).length).toEqual(1);
   });
 });
