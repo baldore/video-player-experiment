@@ -1,10 +1,11 @@
 import expect from 'expect';
 import { shallow, mount } from 'enzyme';
 import React from 'react';
-
 import { IntlProvider, FormattedMessage } from 'react-intl';
-import { MediaPlayerPage } from '../index';
+
+import { MediaPlayerPage, actionsProps } from '../index';
 import messages from '../messages';
+import { toggleRecording } from '../actions';
 
 describe('<MediaPlayerPage />', () => {
   it('should have a video element', () => {
@@ -40,5 +41,22 @@ describe('<MediaPlayerPage />', () => {
     expect(buttonComponent.contains(
       <FormattedMessage {...messages.recordButtonRecording} />
     )).toBe(true);
+  });
+
+  it('should call onRecordingButtonClick prop when he button is clicked', () => {
+    const onButtonClickSpy = expect.createSpy();
+    const renderedComponent = mount(
+      <IntlProvider locale="en">
+        <MediaPlayerPage onRecordingButtonClick={onButtonClickSpy} />
+      </IntlProvider>
+    );
+    renderedComponent.find('button').simulate('click');
+    expect(onButtonClickSpy).toHaveBeenCalled();
+  });
+
+  describe('actionsProps', () => {
+    it('should return toggleRecording action when onRecordingButtonClick is called', () => {
+      expect(actionsProps.onRecordingButtonClick()).toEqual(toggleRecording());
+    });
   });
 });

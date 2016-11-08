@@ -2,10 +2,14 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
+import noop from 'lodash/noop';
 
 import messages from './messages';
+import { toggleRecording } from './actions';
+import { selectIsRecording } from './selectors';
 
-export class MediaPlayerPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class MediaPlayerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <article>
@@ -18,7 +22,7 @@ export class MediaPlayerPage extends React.PureComponent { // eslint-disable-lin
         <div>
           <h1>Hola mundo genial???</h1>
           <video controls></video>
-          <button>
+          <button onClick={this.props.onRecordingButtonClick}>
             <FormattedMessage
               {...(this.props.isRecording ? messages.recordButtonRecording : messages.recordButtonStart)}
             />
@@ -31,6 +35,19 @@ export class MediaPlayerPage extends React.PureComponent { // eslint-disable-lin
 
 MediaPlayerPage.propTypes = {
   isRecording: PropTypes.bool,
+  onRecordingButtonClick: PropTypes.func,
 };
 
-export default connect()(MediaPlayerPage);
+MediaPlayerPage.defaultProps = {
+  onRecordingButtonClick: noop,
+};
+
+export const mapStateToProps = createStructuredSelector({
+  isRecording: selectIsRecording,
+});
+
+export const actionsProps = {
+  onRecordingButtonClick: toggleRecording,
+};
+
+export default connect(mapStateToProps, actionsProps)(MediaPlayerPage);
