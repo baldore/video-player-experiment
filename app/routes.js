@@ -32,7 +32,6 @@ export default function createRoutes(store) {
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('home', reducer.default);
           injectSagas(sagas.default);
-
           renderRoute(component);
         });
 
@@ -52,9 +51,19 @@ export default function createRoutes(store) {
       path: '/media-player',
       name: 'mediaPlayer',
       getComponent(nextState, cb) {
-        System.import('containers/MediaPlayerPage')
-          .then(loadModule(cb))
-          .catch(errorLoading);
+        const importModules = Promise.all([
+          System.import('containers/MediaPlayerPage/reducer'),
+          System.import('containers/MediaPlayerPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, component]) => {
+          injectReducer('mediaPlayer', reducer.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
       },
     },
     {
