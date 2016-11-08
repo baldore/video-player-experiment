@@ -20,10 +20,6 @@ module.exports = (wallaby) => ({
   compilers: {
     '**/*.js': wallaby.compilers.babel({
       presets: [
-        [
-          'latest',
-          { es2015: { modules: false } },
-        ],
         'react',
         'stage-0',
       ],
