@@ -6,7 +6,7 @@ const webpackPostprocessor = wallabyWebpack(webpackConfig);
 
 module.exports = (wallaby) => ({
   files: [
-    'node_modules/babel-polyfill/browser.js',
+    'node_modules/babel-polyfill/dist/polyfill.min.js',
     { pattern: 'app/**/!(*.test).js', load: false },
     { pattern: 'app/**/*.json', load: false },
   ],
@@ -18,7 +18,7 @@ module.exports = (wallaby) => ({
   testFramework: 'mocha',
 
   compilers: {
-    '**/*.js': wallaby.compilers.babel({
+    'app/**/*.js': wallaby.compilers.babel({
       presets: [
         'react',
         'stage-0',
