@@ -9,6 +9,17 @@ import messages from './messages';
 import { toggleRecording } from './actions';
 import { selectIsRecording } from './selectors';
 
+export function getVideoSourceFromFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = (event) => resolve(event.target.result);
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+  });
+}
+
 export class MediaPlayerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
@@ -21,6 +32,13 @@ export class MediaPlayerPage extends React.Component { // eslint-disable-line re
         />
         <div>
           <h1>Hola mundo genial???</h1>
+          <form>
+            <input
+              onChange={this.props.onFileInputChange}
+              type="file"
+              accept="audio/*,video/*"
+            />
+          </form>
           <video controls></video>
           <button onClick={this.props.onRecordingButtonClick}>
             <FormattedMessage
@@ -36,10 +54,18 @@ export class MediaPlayerPage extends React.Component { // eslint-disable-line re
 MediaPlayerPage.propTypes = {
   isRecording: PropTypes.bool,
   onRecordingButtonClick: PropTypes.func,
+  onFileInputChange: PropTypes.func,
 };
 
 MediaPlayerPage.defaultProps = {
   onRecordingButtonClick: noop,
+  onFileInputChange(event) {
+    getVideoSourceFromFile(event.target.files[0])
+      .then((videoSource) => {
+        console.info(videoSource.substring(0, 40));
+      })
+      .catch((err) => console.error(err));
+  },
 };
 
 export const mapStateToProps = createStructuredSelector({
