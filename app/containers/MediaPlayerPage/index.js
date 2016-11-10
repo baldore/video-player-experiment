@@ -8,17 +8,7 @@ import noop from 'lodash/noop';
 import messages from './messages';
 import { toggleRecording } from './actions';
 import { selectIsRecording } from './selectors';
-
-export function getVideoSourceFromFile(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = (event) => resolve(event.target.result);
-    reader.onerror = reject;
-
-    reader.readAsDataURL(file);
-  });
-}
+import { getDataFromFile } from 'utils/native';
 
 export class MediaPlayerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -60,7 +50,7 @@ MediaPlayerPage.propTypes = {
 MediaPlayerPage.defaultProps = {
   onRecordingButtonClick: noop,
   onFileInputChange(event) {
-    getVideoSourceFromFile(event.target.files[0])
+    getDataFromFile(event.target.files[0])
       .then((videoSource) => {
         console.info(videoSource.substring(0, 40));
       })

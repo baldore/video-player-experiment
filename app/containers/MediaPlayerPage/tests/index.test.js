@@ -6,56 +6,11 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 import {
   MediaPlayerPage,
   actionsProps,
-  getVideoSourceFromFile,
 } from '../index';
 import messages from '../messages';
 import { toggleRecording } from '../actions';
 
 describe('<MediaPlayerPage />', () => {
-  describe('getVideoSourceFromFile', () => {
-    const originalFileReader = FileReader;
-    function FileReaderMock() { }
-
-    FileReaderMock.prototype = {
-      readAsDataURL(file) {
-        return file.error ?
-          this.onerror(file.error) :
-          this.onload({ target: { result: file.srcUrl } });
-      },
-    };
-
-    before(() => {
-      window.FileReader = FileReaderMock;
-    });
-
-    it('should return a promise', () => {
-      expect(getVideoSourceFromFile()).toBeA(Promise);
-    });
-
-    it('should resolve with the resource url if successful', function* () { // eslint-disable-line
-      const srcUrl = 'video/aaabbbccc';
-      const file = { srcUrl };
-      const result = yield getVideoSourceFromFile(file);
-
-      expect(result).toBe(srcUrl);
-    });
-
-    it('should be rejected if the resource cannot be loaded', function* () { // eslint-disable-line
-      const error = new Error('Resource not found');
-      const file = { error };
-
-      try {
-        yield getVideoSourceFromFile(file);
-      } catch (e) {
-        expect(e).toEqual(error);
-      }
-    });
-
-    after(() => {
-      window.FileReader = originalFileReader;
-    });
-  });
-
   it('should have a form to upload files', () => {
     const renderedComponent = shallow(
       <MediaPlayerPage />
