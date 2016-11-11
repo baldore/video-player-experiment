@@ -3,11 +3,13 @@ import expect from 'expect';
 import {
   TOGGLE_RECORDING,
   SET_MEDIA_DATA,
+  SET_RAW_FILE,
 } from '../constants';
 
 import {
   toggleRecording,
   setMediaData,
+  setRawFile,
 } from '../actions';
 
 describe('Media Player Actions', () => {
@@ -28,6 +30,17 @@ describe('Media Player Actions', () => {
         media: mediaData,
       };
       expect(setMediaData(mediaData)).toEqual(expectedResult);
+    });
+  });
+
+  describe('setRawFile', () => {
+    it('should return the correct type', () => {
+      const rawFile = { foo: 'bar' };
+      const expectedResult = {
+        type: SET_RAW_FILE,
+        file: rawFile,
+      };
+      expect(setRawFile(rawFile)).toEqual(expectedResult);
     });
   });
 });

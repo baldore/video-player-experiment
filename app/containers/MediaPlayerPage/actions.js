@@ -1,6 +1,7 @@
 import {
   TOGGLE_RECORDING,
   SET_MEDIA_DATA,
+  SET_RAW_FILE,
 } from './constants';
 
 /**
@@ -16,4 +17,12 @@ export const toggleRecording = () => ({
 export const setMediaData = (media) => ({
   type: SET_MEDIA_DATA,
   media,
+});
+
+/**
+ * Stores the raw file as it comes from the input.
+ */
+export const setRawFile = (file) => ({
+  type: SET_RAW_FILE,
+  file,
 });
