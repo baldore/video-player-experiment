@@ -11,7 +11,7 @@ import messages from '../messages';
 import { toggleRecording } from '../actions';
 import Media from '../Media';
 
-describe.only('<MediaPlayerPage />', () => {
+describe('<MediaPlayerPage />', () => {
   it('should have a form to upload files', () => {
     const renderedComponent = shallow(
       <MediaPlayerPage />
@@ -70,7 +70,7 @@ describe.only('<MediaPlayerPage />', () => {
       )).toBe(true);
     });
 
-    it('should call onRecordingButtonClick prop when he button is clicked', () => {
+    it('should call onRecordingButtonClick prop when the button is clicked', () => {
       const onButtonClickSpy = expect.createSpy();
       const renderedComponent = mount(
         <IntlProvider locale="en">

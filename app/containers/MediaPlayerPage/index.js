@@ -9,7 +9,9 @@ import messages from './messages';
 import { toggleRecording } from './actions';
 import { selectIsRecording } from './selectors';
 import { getDataFromFile } from 'utils/native';
+
 import Media from './Media';
+import Button from 'components/Button';
 
 export class MediaPlayerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -31,11 +33,11 @@ export class MediaPlayerPage extends React.Component { // eslint-disable-line re
             />
           </form>
           <Media {...this.props.media} />
-          <button onClick={this.props.onRecordingButtonClick}>
+          <Button onClick={this.props.onRecordingButtonClick}>
             <FormattedMessage
               {...(this.props.isRecording ? messages.recordButtonRecording : messages.recordButtonStart)}
             />
-          </button>
+          </Button>
         </div>
       </article>
     );
