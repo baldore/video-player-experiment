@@ -9,8 +9,9 @@ import {
 } from '../index';
 import messages from '../messages';
 import { toggleRecording } from '../actions';
+import Media from '../Media';
 
-describe('<MediaPlayerPage />', () => {
+describe.only('<MediaPlayerPage />', () => {
   it('should have a form to upload files', () => {
     const renderedComponent = shallow(
       <MediaPlayerPage />
@@ -24,13 +25,22 @@ describe('<MediaPlayerPage />', () => {
     expect(fileInput.prop('accept')).toBe('audio/*,video/*');
   });
 
-  it('should have a video element', () => {
-    const renderedComponent = shallow(
-      <MediaPlayerPage />
-    );
-    const videoComponent = renderedComponent.find('video');
-    expect(videoComponent.length).toBe(1);
-    expect(videoComponent.prop('controls')).toBe(true);
+  describe('Media component', () => {
+    it('should have a media element', () => {
+      const renderedComponent = shallow(
+        <MediaPlayerPage />
+      );
+      const mediaElement = renderedComponent.find('Media');
+      expect(mediaElement.length).toBe(1);
+    });
+
+    it('should spread the props from the media parent prop', () => {
+      const mediaProps = { foo: 'bar', bar: 'baz' };
+      const renderedComponent = shallow(
+        <MediaPlayerPage media={mediaProps} />
+      );
+      expect(renderedComponent.contains(<Media foo="bar" bar="baz" />)).toBe(true);
+    });
   });
 
   describe('recording button', () => {

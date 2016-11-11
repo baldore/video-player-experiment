@@ -9,6 +9,7 @@ import messages from './messages';
 import { toggleRecording } from './actions';
 import { selectIsRecording } from './selectors';
 import { getDataFromFile } from 'utils/native';
+import Media from './Media';
 
 export class MediaPlayerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -29,7 +30,7 @@ export class MediaPlayerPage extends React.Component { // eslint-disable-line re
               accept="audio/*,video/*"
             />
           </form>
-          <video controls></video>
+          <Media {...this.props.media} />
           <button onClick={this.props.onRecordingButtonClick}>
             <FormattedMessage
               {...(this.props.isRecording ? messages.recordButtonRecording : messages.recordButtonStart)}
@@ -43,6 +44,7 @@ export class MediaPlayerPage extends React.Component { // eslint-disable-line re
 
 MediaPlayerPage.propTypes = {
   isRecording: PropTypes.bool,
+  media: PropTypes.object,
   onRecordingButtonClick: PropTypes.func,
   onFileInputChange: PropTypes.func,
 };
