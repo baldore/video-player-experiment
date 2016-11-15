@@ -4,7 +4,7 @@ const selectMediaPlayer = (state) => state.get('mediaPlayer');
 
 const selectIsRecording = createSelector(
   selectMediaPlayer,
-  (mediaPlayer) => mediaPlayer.get('isRecording'),
+  (mediaPlayer) => Boolean(mediaPlayer.get('firstRecordingTime')),
 );
 
 export {

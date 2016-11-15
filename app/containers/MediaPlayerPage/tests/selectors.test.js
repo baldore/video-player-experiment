@@ -17,12 +17,21 @@ describe('selectMediaPlayer', () => {
 });
 
 describe('selectIsRecording', () => {
-  it('should select the isRecording flag', () => {
+  it('should return false if firstRecordingTime is falsy', () => {
     const mediaPlayerState = fromJS({
       mediaPlayer: {
-        isRecording: false,
+        firstRecordingTime: null,
       },
     });
     expect(selectIsRecording(mediaPlayerState)).toEqual(false);
+  });
+
+  it('should return true if firstRecordingTime is truthy', () => {
+    const mediaPlayerState = fromJS({
+      mediaPlayer: {
+        firstRecordingTime: 10,
+      },
+    });
+    expect(selectIsRecording(mediaPlayerState)).toEqual(true);
   });
 });
