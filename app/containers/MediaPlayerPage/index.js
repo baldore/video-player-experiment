@@ -54,6 +54,7 @@ MediaPlayerPage.propTypes = {
 MediaPlayerPage.defaultProps = {
   onRecordingButtonClick: noop,
   onFileInputChange(event) {
+    console.log(event.target.files[0]);
     getDataFromFile(event.target.files[0])
       .then((videoSource) => {
         console.info(videoSource.substring(0, 40));
