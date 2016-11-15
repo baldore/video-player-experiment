@@ -53,13 +53,15 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/MediaPlayerPage/reducer'),
+          System.import('containers/MediaPlayerPage/sagas'),
           System.import('containers/MediaPlayerPage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, component]) => {
+        importModules.then(([reducer, sagas, component]) => {
           injectReducer('mediaPlayer', reducer.default);
+          injectSagas(sagas.default);
           renderRoute(component);
         });
 
