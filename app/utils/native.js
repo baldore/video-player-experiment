@@ -9,7 +9,10 @@ export function getDataFromFile(file) {
 
     // TODO: This should resolve with more information about the resource
     reader.onload = function onResourceLoad(event) {
-      resolve(event.target.result);
+      resolve({
+        file,
+        dataUrl: event.target.result,
+      });
     };
 
     reader.onerror = reject;
