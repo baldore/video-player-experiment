@@ -39,16 +39,15 @@ export function* getReposWatcher() {
 /**
  * Root saga manages watcher lifecycle
  */
-export function* githubData() {
-  // Fork watcher so we can continue execution
-  const watcher = yield fork(getReposWatcher);
+export function* rootSaga() {
+  const task = yield fork(getReposWatcher);
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
+  yield cancel(task);
 }
 
 // Bootstrap sagas
 export default [
-  githubData,
+  rootSaga,
 ];
