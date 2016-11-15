@@ -5,8 +5,7 @@
 import expect from 'expect';
 import { takeLatest } from 'redux-saga';
 import { createMockTask } from 'redux-saga/utils';
-// import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
-import { fork, take, cancel } from 'redux-saga/effects';
+import { fork, take, cancel, call, put } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
@@ -15,6 +14,29 @@ import {
   rootSaga,
 } from '../sagas';
 import { SET_RAW_FILE } from '../constants';
+import { setFileData } from '../actions';
+
+import { getDataFromFile } from 'utils/native';
+
+describe('processFile Saga', () => {
+  const file = 'foo';
+  const action = { file };
+
+  it('should call getDataFromFile', () => {
+    const processFileSaga = processFile(action);
+    const callDescriptor = processFileSaga.next();
+    expect(callDescriptor.value).toEqual(call(getDataFromFile, file));
+  });
+
+  it('should save the file data', () => {
+    const processFileSaga = processFile(action);
+    const fileData = { foo: 'bar' };
+    processFileSaga.next();
+    const putDescriptor = processFileSaga.next(fileData);
+    expect(putDescriptor.value).toEqual(put(setFileData(fileData)));
+  });
+});
+
 
 describe('processFileWatcher Saga', () => {
   const processFileWatcherGenerator = processFileWatcher();

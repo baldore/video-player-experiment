@@ -1,31 +1,30 @@
-/**
- * Gets the repositories of the user from Github
- */
-
 // import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
-import { fork, take } from 'redux-saga/effects';
+import { fork, take, cancel, call, put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
+import { getDataFromFile } from 'utils/native';
+
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { SET_RAW_FILE } from './constants';
 
 // import { selectUsername } from 'containers/HomePage/selectors';
+import { setFileData } from './actions';
 
 /**
- * Github repos request/response handler
+ * Takes the raw file and process it adding more useful information.
+ * @param {Action} action      a SET_FILE_DATA action.
+ * @param {File}   action.file Raw file coming from an input.
  */
-export function* processFile() {
-  // const username = yield select(selectUsername()); // Select username from store
-  // const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
+export function* processFile({ file }) {
+  const fileData = yield call(getDataFromFile, file);
 
-  // try {
-  //   // Call our request helper (see 'utils/request')
-  //   const repos = yield call(request, requestURL);
-  //   yield put(reposLoaded(repos, username));
-  // } catch (err) {
-  //   yield put(repoLoadingError(err));
-  // }
+  // TODO: Add error handling for file.
+
+  yield put(setFileData(fileData));
 }
 
+/**
+ * Watcher for processFile.
+ */
 export function* processFileWatcher() {
   yield fork(takeLatest, SET_RAW_FILE, processFile);
 }
@@ -37,7 +36,7 @@ export function* rootSaga() {
   const task = yield fork(processFileWatcher);
 
   yield take(LOCATION_CHANGE);
-  yield task(task);
+  yield cancel(task);
 }
 
 export default [

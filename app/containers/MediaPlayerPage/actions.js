@@ -2,6 +2,7 @@ import {
   TOGGLE_RECORDING,
   SET_MEDIA_DATA,
   SET_RAW_FILE,
+  SET_FILE_DATA,
 } from './constants';
 
 /**
@@ -25,4 +26,12 @@ export const setMediaData = (media) => ({
 export const setRawFile = (file) => ({
   type: SET_RAW_FILE,
   file,
+});
+
+/**
+ * Saves the processed file data.
+ */
+export const setFileData = (fileData) => ({
+  type: SET_FILE_DATA,
+  fileData,
 });

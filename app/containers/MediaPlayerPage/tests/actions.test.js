@@ -4,12 +4,14 @@ import {
   TOGGLE_RECORDING,
   SET_MEDIA_DATA,
   SET_RAW_FILE,
+  SET_FILE_DATA,
 } from '../constants';
 
 import {
   toggleRecording,
   setMediaData,
   setRawFile,
+  setFileData,
 } from '../actions';
 
 describe('Media Player Actions', () => {
@@ -41,6 +43,17 @@ describe('Media Player Actions', () => {
         file: rawFile,
       };
       expect(setRawFile(rawFile)).toEqual(expectedResult);
+    });
+  });
+
+  describe('setFileData', () => {
+    it('should return the correct type', () => {
+      const fileData = { foo: 'bar' };
+      const expectedResult = {
+        type: SET_FILE_DATA,
+        fileData,
+      };
+      expect(setFileData(fileData)).toEqual(expectedResult);
     });
   });
 });
