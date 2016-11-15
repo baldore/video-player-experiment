@@ -8,7 +8,10 @@ import {
   actionsProps,
 } from '../index';
 import messages from '../messages';
-import { toggleRecording } from '../actions';
+import {
+  toggleRecording,
+  setRawFile,
+} from '../actions';
 import Media from '../Media';
 
 describe('<MediaPlayerPage />', () => {
@@ -85,6 +88,17 @@ describe('<MediaPlayerPage />', () => {
   describe('actionsProps', () => {
     it('should return toggleRecording action when onRecordingButtonClick is called', () => {
       expect(actionsProps.onRecordingButtonClick()).toEqual(toggleRecording());
+    });
+
+    it('should return setRawFile action when onFileInputChange is called', () => {
+      const file = { filename: 'foo.txt' };
+      const event = {
+        target: {
+          files: [file],
+        },
+      };
+
+      expect(actionsProps.onFileInputChange(event)).toEqual(setRawFile(file));
     });
   });
 });
