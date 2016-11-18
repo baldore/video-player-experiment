@@ -7,6 +7,7 @@ import noop from 'lodash/noop';
 
 import messages from './messages';
 import {
+  processFile,
 } from './actions';
 import { selectIsRecording } from './selectors';
 
@@ -62,9 +63,9 @@ export const mapStateToProps = createStructuredSelector({
 
 export const actionsProps = {
   // onRecordingButtonClick: toggleRecording,
-  // onFileInputChange(event) {
-  //   return setRawFile(event.target.files[0]);
-  // },
+  onFileInputChange(event) {
+    return processFile(event.target.files[0]);
+  },
 };
 
 export default connect(mapStateToProps, actionsProps)(MediaPlayerPage);

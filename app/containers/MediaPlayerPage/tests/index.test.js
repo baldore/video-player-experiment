@@ -5,8 +5,12 @@ import { IntlProvider, FormattedMessage } from 'react-intl';
 
 import {
   MediaPlayerPage,
-  // actionsProps,
+  actionsProps,
 } from '../index';
+import {
+  processFile,
+} from '../actions';
+
 import messages from '../messages';
 import Media from '../Media';
 
@@ -82,5 +86,14 @@ describe('<MediaPlayerPage />', () => {
   });
 
   describe('actionsProps', () => {
+    it('should return a processFile action on input file change', () => {
+      const file = { foo: 'bar' };
+      const event = {
+        target: {
+          files: [file],
+        },
+      };
+      expect(actionsProps.onFileInputChange(event)).toEqual(processFile(file));
+    });
   });
 });
