@@ -11,7 +11,7 @@ export function getDataFromFile(file) {
     reader.onload = function onResourceLoad(event) {
       resolve({
         file,
-        dataUrl: event.target.result,
+        sourceUrl: event.target.result,
       });
     };
 

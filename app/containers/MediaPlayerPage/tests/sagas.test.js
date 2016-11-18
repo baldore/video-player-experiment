@@ -15,6 +15,7 @@ import {
 
 import {
   setRawFile,
+  setSourceUrl,
 } from '../actions';
 
 import { getDataFromFile } from 'utils/native';
@@ -34,12 +35,13 @@ describe('processFile Saga', () => {
     expect(callDescriptor.value).toEqual(call(getDataFromFile, file));
   });
 
-  it('should save the file data', () => {
-    // const processFileGenerator = processFileSaga(action);
-    // const fileData = { foo: 'bar' };
-    // processFileGenerator.next();
-    // const putDescriptor = processFileGenerator.next(fileData);
-    // expect(putDescriptor.value).toEqual(put(setFileData(fileData)));
+  it('should store the source url', () => {
+    const fileData = {
+      file: 'foo',
+      sourceUrl: 'video/aabbcc',
+    };
+    const putDescriptor = processFileGenerator.next(fileData);
+    expect(putDescriptor.value).toEqual(put(setSourceUrl(fileData.sourceUrl)));
   });
 });
 

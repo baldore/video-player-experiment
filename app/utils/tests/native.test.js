@@ -10,7 +10,7 @@ describe('getVideoSourceFromFile', () => {
     readAsDataURL(file) {
       return file.error ?
         this.onerror(file.error) :
-        this.onload({ target: { result: file.dataUrl } });
+        this.onload({ target: { result: file.sourceUrl } });
     },
   };
 
@@ -23,11 +23,11 @@ describe('getVideoSourceFromFile', () => {
   });
 
   it('should resolve with the resource url if successful', function* () { // eslint-disable-line
-    const dataUrl = 'video/aaabbbccc';
-    const file = { dataUrl };
+    const sourceUrl = 'video/aaabbbccc';
+    const file = { sourceUrl };
     const result = yield getDataFromFile(file);
 
-    expect(result).toEqual({ file, dataUrl });
+    expect(result).toEqual({ file, sourceUrl });
   });
 
   it('should be rejected if the resource cannot be loaded', function* () { // eslint-disable-line

@@ -1,4 +1,3 @@
-// import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
 import { fork, take, cancel, call, put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
 import { getDataFromFile } from 'utils/native';
@@ -6,9 +5,9 @@ import { getDataFromFile } from 'utils/native';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { PROCESS_FILE } from './constants';
 
-// import { selectUsername } from 'containers/HomePage/selectors';
 import {
   setRawFile,
+  setSourceUrl,
 } from './actions';
 
 /**
@@ -18,9 +17,9 @@ import {
  */
 export function* processFileSaga({ file }) {
   yield put(setRawFile(file));
-  yield call(getDataFromFile, file);
 
-  // TODO: Add error handling for file.
+  const { sourceUrl } = yield call(getDataFromFile, file); // TODO: Add error handling for file.
+  yield put(setSourceUrl(sourceUrl));
 }
 
 /**
