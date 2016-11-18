@@ -1,13 +1,15 @@
 import { createSelector } from 'reselect';
 
-const selectMediaPlayer = (state) => state.get('mediaPlayer');
+export const selectMediaPlayer = (state) => state.get('mediaPlayer');
 
-const selectIsRecording = createSelector(
+export const selectIsRecording = createSelector(
   selectMediaPlayer,
   (mediaPlayer) => Boolean(mediaPlayer.get('firstRecordingTime')),
 );
 
-export {
+export const selectSourceUrl = createSelector(
   selectMediaPlayer,
-  selectIsRecording,
-};
+  (mediaPlayer) => mediaPlayer.get('sourceUrl')
+);
+
+export const selectFileType = function () {};

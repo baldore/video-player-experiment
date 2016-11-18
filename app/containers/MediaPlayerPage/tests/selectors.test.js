@@ -4,9 +4,11 @@ import expect from 'expect';
 import {
   selectMediaPlayer,
   selectIsRecording,
+  selectSourceUrl,
+  // selectFileType,
 } from '../selectors';
 
-describe('selectMediaPlayer', () => {
+describe('selectMediaPlayer selector', () => {
   it('should select the media player state', () => {
     const innerState = fromJS({ foo: 'bar' });
     const mediaPlayerState = fromJS({
@@ -16,7 +18,7 @@ describe('selectMediaPlayer', () => {
   });
 });
 
-describe('selectIsRecording', () => {
+describe('selectIsRecording selector', () => {
   it('should return false if firstRecordingTime is falsy', () => {
     const mediaPlayerState = fromJS({
       mediaPlayer: {
@@ -34,4 +36,28 @@ describe('selectIsRecording', () => {
     });
     expect(selectIsRecording(mediaPlayerState)).toEqual(true);
   });
+});
+
+describe('selectSourceUrl selector', () => {
+  it('should return the source url if exist', () => {
+    const mediaPlayerState = fromJS({
+      mediaPlayer: {
+        sourceUrl: 'foo',
+      },
+    });
+    expect(selectSourceUrl(mediaPlayerState)).toEqual('foo');
+  });
+
+  it('should return null if there is no source url', () => {
+    const mediaPlayerState = fromJS({
+      mediaPlayer: {},
+    });
+    expect(selectSourceUrl(mediaPlayerState)).toEqual(null);
+  });
+});
+
+
+describe('selectFileType selector', () => {
+  it('should return the type of the current file');
+  it('should return null if there is no file');
 });

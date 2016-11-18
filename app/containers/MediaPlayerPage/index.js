@@ -9,7 +9,11 @@ import messages from './messages';
 import {
   processFile,
 } from './actions';
-import { selectIsRecording } from './selectors';
+
+import {
+  selectSourceUrl,
+  selectFileType,
+} from './selectors';
 
 import Media from './Media';
 import Button from 'components/Button';
@@ -58,11 +62,13 @@ MediaPlayerPage.defaultProps = {
 };
 
 export const mapStateToProps = createStructuredSelector({
-  isRecording: selectIsRecording,
+  media: createStructuredSelector({
+    src: selectSourceUrl,
+    type: selectFileType,
+  }),
 });
 
 export const actionsProps = {
-  // onRecordingButtonClick: toggleRecording,
   onFileInputChange(event) {
     return processFile(event.target.files[0]);
   },
