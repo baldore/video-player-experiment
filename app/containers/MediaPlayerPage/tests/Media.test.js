@@ -36,8 +36,16 @@ describe('<Media />', () => {
 
   it('should create an video element if the type is video', () => {
     const renderedComponent = shallow(
-      <Media type="video/mpg" src="foo" />
+      <Media
+        src="foo"
+        type="video/mpg"
+      />
     );
-    expect(renderedComponent.contains(<video />)).toBe(true);
+    const expected = (
+      <video controls>
+        <source src="foo" type="video/mp3" />
+      </video>
+    );
+    expect(renderedComponent.contains(expected)).toBe(true);
   });
 });

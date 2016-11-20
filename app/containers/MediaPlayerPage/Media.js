@@ -18,7 +18,11 @@ export default class Media extends React.Component { // eslint-disable-line reac
     }
 
     if (type.startsWith('video')) {
-      mediaElement = <video />;
+      mediaElement = (
+        <video controls>
+          <source src={src} type={type} />
+        </video>
+      );
     }
 
     return (
