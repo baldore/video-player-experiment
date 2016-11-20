@@ -49,7 +49,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-push": "npm run lint && npm run test"
+      "pre-push": "npm run test"
     }
   },
   "lint-staged": {
