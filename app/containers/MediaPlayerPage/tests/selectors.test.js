@@ -1,11 +1,11 @@
-import { fromJS } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import expect from 'expect';
 
 import {
   selectMediaPlayer,
   selectIsRecording,
   selectSourceUrl,
-  // selectFileType,
+  selectFileType,
 } from '../selectors';
 
 describe('selectMediaPlayer selector', () => {
@@ -56,8 +56,22 @@ describe('selectSourceUrl selector', () => {
   });
 });
 
-
 describe('selectFileType selector', () => {
-  it('should return the type of the current file');
-  it('should return null if there is no file');
+  it('should return the type of the current file', () => {
+    const mediaPlayerState = new Map({
+      mediaPlayer: new Map({
+        rawFile: {
+          type: 'video/mpg',
+        },
+      }),
+    });
+    expect(selectFileType(mediaPlayerState)).toEqual('video');
+  });
+
+  it('should return null if there is no file', () => {
+    const mediaPlayerState = fromJS({
+      mediaPlayer: {},
+    });
+    expect(selectFileType(mediaPlayerState)).toEqual(null);
+  });
 });

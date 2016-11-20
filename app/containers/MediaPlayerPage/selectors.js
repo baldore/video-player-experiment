@@ -12,4 +12,10 @@ export const selectSourceUrl = createSelector(
   (mediaPlayer) => mediaPlayer.get('sourceUrl')
 );
 
-export const selectFileType = function () {};
+export const selectFileType = createSelector(
+  selectMediaPlayer,
+  (mediaPlayer) => {
+    const rawFile = mediaPlayer.get('rawFile');
+    return rawFile && rawFile.type.split('/')[0];
+  }
+);
