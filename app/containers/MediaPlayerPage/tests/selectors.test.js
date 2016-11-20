@@ -65,7 +65,7 @@ describe('selectFileType selector', () => {
         },
       }),
     });
-    expect(selectFileType(mediaPlayerState)).toEqual('video');
+    expect(selectFileType(mediaPlayerState)).toEqual('video/mpg');
   });
 
   it('should return null if there is no file', () => {

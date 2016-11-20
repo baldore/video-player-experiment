@@ -16,6 +16,6 @@ export const selectFileType = createSelector(
   selectMediaPlayer,
   (mediaPlayer) => {
     const rawFile = mediaPlayer.get('rawFile');
-    return rawFile && rawFile.type.split('/')[0];
+    return rawFile && rawFile.type;
   }
 );
