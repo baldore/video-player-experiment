@@ -39,15 +39,6 @@ export default function createRoutes(store) {
       },
     },
     {
-      path: '/features',
-      name: 'features',
-      getComponent(nextState, cb) {
-        System.import('containers/FeaturePage')
-          .then(loadModule(cb))
-          .catch(errorLoading);
-      },
-    },
-    {
       path: '/media-player',
       name: 'mediaPlayer',
       getComponent(nextState, cb) {
