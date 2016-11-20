@@ -43,7 +43,7 @@ describe('<Media />', () => {
     );
     const expected = (
       <video controls>
-        <source src="foo" type="video/mp3" />
+        <source src="foo" type="video/mpg" />
       </video>
     );
     expect(renderedComponent.contains(expected)).toBe(true);
